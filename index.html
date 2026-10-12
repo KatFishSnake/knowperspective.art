@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Perspective Lab: interactive 1, 2 and 3-point perspective for artists · knowperspective.art</title>
+<meta name="description" content="Interactive 1, 2 and 3-point perspective construction for artists: station point, cone of vision, 90° legs and vanishing points, all moving together.">
+<link rel="canonical" href="https://knowperspective.art/">
+<meta property="og:title" content="Perspective Lab: interactive 1, 2 and 3-point perspective for artists">
+<meta property="og:description" content="Interactive 1, 2 and 3-point perspective construction for artists: station point, cone of vision, 90° legs and vanishing points, all moving together.">
+<meta property="og:url" content="https://knowperspective.art/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="knowperspective.art">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="https://knowperspective.art/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The perspective construction: horizon, station point, cone of vision, legs to the vanishing points and a box drawn from them">
+<meta name="author" content="Andre">
+<meta name="keywords" content="perspective drawing, one-point perspective, two-point perspective, three-point perspective, station point, cone of vision, vanishing points, perspective construction, interactive, artists">
+<meta name="theme-color" content="#F3F4F0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1B1D21" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='26' r='17' fill='none' stroke='%23D23B2E' stroke-width='4'/%3E%3Cpath d='M32 4v56M6 26h52' stroke='%23D23B2E' stroke-width='3'/%3E%3Ccircle cx='32' cy='54' r='5' fill='%23D23B2E'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+Condensed:wght@500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/assets/base.css">
+<link rel="stylesheet" href="/assets/lab.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://knowperspective.art/#website",
+      "url": "https://knowperspective.art/",
+      "name": "knowperspective.art",
+      "description": "Interactive perspective construction for artists: station point, cone of vision, vanishing points and the box drawn from them, all moving together.",
+      "inLanguage": "en",
+      "publisher": { "@id": "https://knowperspective.art/#author" }
+    },
+    {
+      "@type": "Person",
+      "@id": "https://knowperspective.art/#author",
+      "name": "Andre",
+      "url": "https://github.com/KatFishSnake",
+      "sameAs": ["https://github.com/KatFishSnake"]
+    },
+    {
+      "@type": "WebApplication",
+      "@id": "https://knowperspective.art/#app",
+      "name": "Perspective Lab",
+      "url": "https://knowperspective.art/",
+      "applicationCategory": "EducationalApplication",
+      "operatingSystem": "Any",
+      "browserRequirements": "Requires JavaScript and a modern browser",
+      "isAccessibleForFree": true,
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "description": "Move the station point, cone of vision, box rotation and tilt and watch the vanishing points and the drawing respond. Explains each element of the one-, two- and three-point perspective construction.",
+      "author": { "@id": "https://knowperspective.art/#author" },
+      "audience": { "@type": "Audience", "audienceType": "Artists, illustrators, concept artists, architecture sketchers, art students" },
+      "learningResourceType": "Interactive simulation",
+      "educationalLevel": "Beginner to intermediate",
+      "about": ["Linear perspective", "One-point perspective", "Two-point perspective", "Three-point perspective", "Station point", "Cone of vision", "Vanishing points"],
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-12",
+      "isPartOf": { "@id": "https://knowperspective.art/#website" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://knowperspective.art/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is the station point in perspective drawing?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The station point (SP) is the position of the viewer's eye. In the folded-plan construction it is drawn on the sheet, directly below the centre of vision at the viewing distance D. Every angle in the construction, the cone of vision, the 90° corner of the box and the visual rays, is measured from it." }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the cone of vision do, and what happens if I widen it?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The cone of vision is a check, not a construction line. It marks the region, about 60° wide around the line of sight, inside which a drawing looks natural to someone viewing it from a normal distance. On the sheet it is a circle around the centre of vision with radius D · tan(30°) ≈ 0.58 · D. Widening the cone changes nothing in the projection; it only changes how far from the centre you allow yourself to draw before things look stretched. At 90° the vanishing points of a 45° box sit exactly on the circle; beyond 90° they fall inside it. On paper the cone is how you find D: circle your composition, then D = r / tan(30°)." }
+        },
+        {
+          "@type": "Question",
+          "name": "Why is the angle at the station point 90°?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Because the box has right-angled corners. The two legs drawn from the station point are parallel to the box's two horizontal edge directions, and where they meet the horizon are the two vanishing points. Rotating the box swings both legs together, so one vanishing point moves closer while the other moves away. Using an angle other than 90° draws a prism with that corner angle, not a different view." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the difference between one-, two- and three-point perspective?",
+          "acceptedAnswer": { "@type": "Answer", "text": "They are one system. One-point is two-point with the box turned square to the viewer: one leg from the station point runs parallel to the horizon, so that vanishing point is at infinity and those edges stay parallel; the other leg points straight at the centre of vision. Three-point appears when the line of sight is tilted up or down: the picture plane tilts with it, verticals converge to a third vanishing point at D / tan(tilt) above or below the centre of vision, and the horizon moves to D · tan(tilt) on the other side." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find the vanishing points on paper?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Draw the horizon line and a vertical through the centre of vision (CV). Place the station point SP on that vertical, D below the horizon. From SP draw two legs, 90° apart, parallel to the box's horizontal edges. Where each leg crosses the horizon is a vanishing point. For a box rotated 45° both vanishing points sit at distance D from CV; for a rotation θ they sit at D · cot(θ) and D · tan(θ) on either side." }
+        },
+        {
+          "@type": "Question",
+          "name": "How does a camera lens relate to the perspective construction?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The focal length plays the role of D, scaled to the sheet: D = focal length × frame width ÷ sensor width. The sensor is the frame, and the lens's diagonal angle of view is the cone of vision, so the frame sits inscribed in the cone circle. A 60° cone corresponds to roughly a 37 mm lens on full frame; 50 mm gives 47°, 24 mm gives 84°." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="app">
+<nav class="site-nav" aria-label="Site">
+  <a class="wordmark" href="/">know<b>perspective</b>.art</a>
+  <ul>
+    <li><a href="/" aria-current="page">Lab</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="https://github.com/KatFishSnake/knowperspective.art">GitHub</a></li>
+  </ul>
+</nav>
+<main>
+  <header>
+    <div class="eyebrow">Folded-plan construction · 1, 2 and 3-point</div>
+    <h1>Perspective Lab</h1>
+    <p>Station point, viewing distance, cone of vision, the 90° legs and the vanishing points all come from the same handful of numbers. Move a slider and watch the construction and the drawing change together. Drag the sheet to pan, scroll to zoom.</p>
+    <div class="presets" id="presets"><span class="eyebrow">Presets</span></div>
+    <div class="presets" id="presets-adv" hidden><span class="eyebrow">Advanced</span></div>
+  </header>
+
+  <div class="stage">
+    <aside class="elements" id="elements">
+      <div class="eyebrow">Elements on the sheet</div>
+      <p class="lead">Hover to light one up on the sheet, click to keep it lit.</p>
+      <button class="el" type="button" data-key="horizon" style="--sw:var(--red)"><i></i><b>Horizon line</b>
+        <span>Your eye level, seen edge-on. Every horizontal edge of the cube vanishes somewhere on it, so it is where VP1 and VP2 must sit. <em>Moves with:</em> tilt only. Eye height moves the cube, not the line.</span></button>
+      <button class="el" type="button" data-key="axis" style="--sw:var(--red)"><i class="dashed"></i><b>Vertical through CV</b>
+        <span>Your line of sight, folded flat. CV is where it meets the horizon. It is the hinge of the fold: SP, the cone circle and VP3 all sit on it. <em>Moves with:</em> nothing. Everything is measured from it.</span></button>
+      <button class="el" type="button" data-key="sp" style="--sw:var(--red)"><i class="dot"></i><b>Station point SP</b>
+        <span>Your eye, folded down onto the sheet, D below the horizon. Every angle is set here: the cone, the 90° corner, the visual rays. <em>Moves with:</em> D. Everything else scales with it.</span></button>
+      <button class="el" type="button" data-key="cone" style="--sw:var(--red)"><i class="ring"></i><b>Cone of vision</b>
+        <span>Where a 60° cone from SP cuts the window: radius D · tan 30°. A limit, not a drawing line. Keep the cube inside it and the VPs outside it. <em>Moves with:</em> D and the cone angle. Ignores rotation and eye height.</span></button>
+      <button class="el" type="button" data-key="rays" style="--sw:var(--red)"><i></i><b>Lines to the cone</b>
+        <span>The two edges of the cone, half the angle each side of the axis. Where they hit the horizon is the circle's radius, so they are how you draw the circle with a protractor. <em>Moves with:</em> cone angle and D.</span></button>
+      <button class="el" type="button" data-key="legs" style="--sw:var(--red)"><i></i><b>Lines from SP to the horizon</b>
+        <span>Two legs parallel to the cube's horizontal edges, 90° apart because the corner is 90°. Where they hit the horizon are VP1 and VP2. <em>Moves with:</em> rotation swings the pair (one VP in, the other out), D pushes both out, tilt spreads them.</span></button>
+      <button class="el" type="button" data-key="vps" style="--sw:var(--green)"><i></i><b>Vanishing points</b>
+        <span>Where parallel edges meet. VP1 and VP2 come from the legs, VP3 from tilting your gaze. The green lines run every cube edge to its own VP, which is how you draw the cube once the points are placed.</span></button>
+    </aside>
+    <div class="canvas-wrap">
+      <canvas id="sheet" aria-label="Perspective construction and drawing"></canvas>
+      <div class="viewbar">
+        <label for="zoom">Zoom</label>
+        <input id="zoom" type="range" min="0.12" max="2" step="0.01" value="1">
+        <button id="fit" type="button" class="btn">Fit</button>
+        <button id="reset" type="button" class="btn">Reset</button>
+      </div>
+      <div class="legend">
+        <span style="color:var(--red)"><i></i><span style="color:var(--ink-2)">construction (SP, horizon, cone, legs)</span></span>
+        <span style="color:var(--green)"><i></i><span style="color:var(--ink-2)">vanishing points, converging edges</span></span>
+        <span style="color:var(--blue)"><i></i><span style="color:var(--ink-2)">visual rays, plan method</span></span>
+        <span style="color:var(--graphite)"><i></i><span style="color:var(--ink-2)">the box</span></span>
+      </div>
+    </div>
+    <aside class="controls" id="controls"></aside>
+  </div>
+
+  <section class="reading">
+    <div class="mode">
+      <div class="badge"><b id="mode-name">Two-point perspective</b><span id="mode-sub"></span></div>
+      <dl class="stats" id="stats"></dl>
+    </div>
+    <ul class="notes" id="notes"></ul>
+  </section>
+
+  <section class="concepts">
+    <h2>How the pieces fit together</h2>
+    <div class="concept"><h3>The sheet is a window, SP is your eye</h3>
+      <p>Your line of sight pierces the window at the centre of vision, CV. The distance from your eye to the window is <code>D</code>. The paper method folds the eye down onto the sheet: SP is drawn <code>D</code> below CV on the vertical through CV. Because of that fold, a plan of the object drawn on the same sheet, with the horizon as the window seen edge-on, projects correctly: a visual ray from SP to a plan corner crosses the horizon exactly where that corner sits in the drawing.</p></div>
+    <div class="concept"><h3>The horizon is your eye level</h3>
+      <p>Every horizontal direction vanishes somewhere on this line. Raising your eye moves the box down the sheet relative to the horizon, and lowering it moves the box up. The construction itself, SP, cone and VPs, does not move at all.</p></div>
+    <div class="concept"><h3>The cone of vision is a check, not a construction</h3>
+      <p>The eye sees comfortably within about 30° of the line of sight. On the sheet that is a circle around CV with radius <code>D · tan(30°) ≈ 0.58 · D</code>. Changing the cone changes nothing in the projection; it only changes how far from CV you allow yourself to draw before things look stretched to someone viewing the sheet from a normal distance. On paper it is how you find <code>D</code>: circle your composition, then <code>D = r / tan(30°)</code>. The button under Advanced does exactly that.</p></div>
+    <div class="concept"><h3>The 90° is the box's corner, not your eye's</h3>
+      <p>From SP draw two legs parallel to the box's two horizontal edge directions. Where they hit the horizon are VP1 and VP2. They are 90° apart because the box is rectangular. Turning the box swings both legs together: one VP comes in, the other runs out. Use a different angle and you draw a prism with that corner angle, the same view of a different object.</p></div>
+    <div class="concept"><h3>One-point is two-point with the box turned square</h3>
+      <p>At 0° one leg runs along the horizon and never meets it. That VP is at infinity, so those edges stay parallel to the horizon. The other leg points straight at CV, which is where the receding edges meet. Nothing else changes.</p></div>
+    <div class="concept"><h3>Three-point is a tilted line of sight</h3>
+      <p>Sliding the horizon up or down the page only changes eye height. Tilt the line of sight instead and the window tilts with it: verticals converge to VP3 at <code>D / tan(tilt)</code> above or below CV, and the horizon moves to <code>D · tan(tilt)</code> on the other side of CV. The two horizontal VPs spread apart by <code>1 / cos(tilt)</code>, which is why the SP folded about the horizon now sits <code>D / cos(tilt)</code> below it.</p></div>
+    <div class="concept"><h3>Wide-angle and telephoto are just D</h3>
+      <p>Small <code>D</code>: SP close to the sheet, VPs close together, a small cone circle and fast convergence, the wide-angle look. Large <code>D</code>: convergence flattens, the circle grows, and the VPs run off the sheet, the telephoto look. The front edge of the box stays the same size because it sits on the window.</p></div>
+    <div class="concept"><h3>A camera lens is D plus a frame</h3>
+      <p>The focal length is <code>D</code>, scaled to the sheet; the sensor is the frame; the lens's diagonal angle of view is the cone, and the frame sits inscribed in it. A 60° cone is about a 37 mm lens on full frame. 50 mm gives 47°, 24 mm gives 84°, which is why a wide lens warps boxes near the frame edge: with 84° the VPs of a 45° box fall inside the circle.</p></div>
+  </section>
+
+  <section class="formulas" aria-labelledby="formulas-h">
+    <h2 id="formulas-h">Quick reference</h2>
+    <dl class="formula-list">
+      <dt>Cone of vision radius on the sheet</dt><dd><code>r = D · tan(cone ÷ 2)</code>, so a 60° cone gives <code>r ≈ 0.58 · D</code></dd>
+      <dt>Viewing distance from a chosen composition circle</dt><dd><code>D = r ÷ tan(30°) ≈ 1.73 · r</code></dd>
+      <dt>Station point</dt><dd>On the vertical through CV, <code>D</code> below the horizon (<code>D ÷ cos(tilt)</code> when the line of sight is tilted)</dd>
+      <dt>Vanishing points of a box rotated θ</dt><dd><code>VP1 = D · cot(θ)</code> and <code>VP2 = −D · tan(θ)</code> from CV along the horizon; at 45° both sit at <code>±D</code></dd>
+      <dt>Three-point, line of sight tilted by φ</dt><dd>Horizon moves to <code>−D · tan(φ)</code>, verticals meet at <code>VP3 = D · cot(φ)</code>, horizontal VPs spread by <code>1 ÷ cos(φ)</code></dd>
+      <dt>Camera lens</dt><dd><code>D = focal length × frame width ÷ sensor width</code>; cone = diagonal angle of view <code>2 · atan(sensor diagonal ÷ 2f)</code>; 60° ≈ 37 mm on full frame</dd>
+    </dl>
+  </section>
+</main>
+<footer class="site-footer">
+  <span>Made for artists learning to construct perspective by hand.</span>
+  <span>Free and open source · <a href="https://github.com/KatFishSnake/knowperspective.art">source on GitHub</a> · <a href="/about">about</a></span>
+</footer>
+</div>
+<script src="/assets/lab.js"></script>
+</body>
+</html>

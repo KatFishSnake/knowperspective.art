@@ -1,0 +1,18 @@
+# knowperspective.art
+
+> Free, interactive one-, two- and three-point perspective construction for artists. Every line on the sheet (horizon, station point, cone of vision, legs, vanishing points, the box) is derived from one pinhole projection, so moving one element moves everything that depends on it. No account, no tracking, runs in the browser.
+
+Made for illustrators, concept artists, architecture sketchers and art students learning to construct perspective by hand with the folded-plan method (station point below the horizon, 60° cone of vision, 90° legs to the vanishing points).
+
+## Pages
+
+- [Perspective Lab](https://knowperspective.art/): the interactive tool, with an explanation of each sheet element, live readings and warnings, presets, camera-lens mode and a quick-reference formula table.
+- [About](https://knowperspective.art/about): who it is for, why it exists, what it teaches, how to use it, roadmap.
+
+## Full content
+
+- [llms-full.txt](https://knowperspective.art/llms-full.txt): all explanatory text and formulas from the site in plain Markdown.
+
+## Source
+
+- [GitHub repository](https://github.com/KatFishSnake/knowperspective.art): open source, static site, no build step.

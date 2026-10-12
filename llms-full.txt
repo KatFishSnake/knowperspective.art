@@ -1,0 +1,76 @@
+# knowperspective.art: perspective construction, in full
+
+Source: https://knowperspective.art/ (interactive tool) and https://knowperspective.art/about
+Author: Andre. Free and open source. Last updated 2026-10-12.
+
+## What the tool is
+
+Perspective Lab is an interactive simulation of the classical "folded-plan" perspective construction used by artists. A box is projected through a real eye point onto a picture plane, and every construction element on the sheet is derived from that same projection:
+
+- the horizon line (eye level),
+- the vertical through the centre of vision (CV),
+- the station point (SP, the eye folded down onto the sheet),
+- the cone of vision (a circle around CV),
+- the two lines from SP that mark the cone,
+- the two legs from SP to the horizon that locate the vanishing points VP1 and VP2,
+- VP3 when the line of sight is tilted.
+
+Sliders: viewing distance D, cone of vision angle, tilt of the line of sight, eye height, box rotation, width, depth, height, sideways position. Advanced: camera lens (focal length, sensor format, frame width), a button that derives D from the cone, box corner angle. Toggles: construction lines, edge lines to the VPs, ground grid, hidden edges, plan of the box on the sheet, visual rays, camera frame.
+
+## The six elements and what each one is for
+
+Horizon line. Your eye level, seen edge-on. Every horizontal edge of the box vanishes somewhere on it, so it is where VP1 and VP2 must sit. It moves only when the line of sight is tilted. Eye height moves the box relative to the horizon, not the line itself.
+
+Vertical through CV. Your line of sight, folded flat. CV is where it meets the horizon. It is the hinge of the fold: SP, the cone circle and VP3 all sit on it. Nothing moves it; everything is measured from it.
+
+Station point (SP). Your eye, folded down onto the sheet, D below the horizon. Every angle is set here: the cone of vision, the 90° corner of the box, the visual rays. D slides it up and down the sheet, and everything else scales with it.
+
+Cone of vision. Where a 60° cone from SP cuts the window: a circle around CV with radius D · tan(30°) ≈ 0.58 · D. It is a limit, not a drawing line. Keep the box inside it and the vanishing points outside it. It grows with D and with the cone angle; it ignores rotation and eye height.
+
+Lines to the cone. The two edges of the cone, half the cone angle each side of the axis. Where they hit the horizon is the circle's radius, so they are how you draw the circle with a protractor.
+
+Lines from SP to the horizon (the legs). Two legs from SP parallel to the box's horizontal edges, 90° apart because the box's corner is 90°. Where they hit the horizon are VP1 and VP2. Rotating the box swings the pair along the horizon (one VP comes in, the other goes out); D pushes both out; tilt spreads them by 1 / cos(tilt).
+
+Vanishing points. Where parallel edges meet. VP1 and VP2 come from the legs, VP3 from tilting the line of sight. Once they are placed, every edge of the box is drawn toward its own vanishing point.
+
+## The rules
+
+1. The sheet is a window and SP is your eye. The line of sight pierces the window at CV. The eye-to-window distance is D. The paper method folds the eye down onto the sheet: SP is drawn D below CV on the vertical through CV. Because of that fold, a plan of the object drawn on the same sheet, with the horizon as the window seen edge-on, projects correctly: a visual ray from SP to a plan corner crosses the horizon exactly where that corner sits in the drawing.
+
+2. The horizon is your eye level. Every horizontal direction vanishes somewhere on it. Raising your eye moves the box down the sheet relative to the horizon; lowering it moves the box up. The construction itself (SP, cone, VPs) does not move.
+
+3. The cone of vision is a check, not a construction. The eye sees comfortably within about 30° of the line of sight. Changing the cone changes nothing in the projection; it only changes how far from CV you allow yourself to draw before things look stretched to someone viewing the sheet from a normal distance. At a 90° cone the VPs of a 45° box sit exactly on the circle; beyond 90° they fall inside it and the circle no longer protects you. On paper the cone is how you find D: circle your composition with radius r, then D = r / tan(30°) ≈ 1.73 · r.
+
+4. The 90° is the box's corner, not your eye's. From SP draw two legs parallel to the box's two horizontal edge directions; where they hit the horizon are VP1 and VP2. They are 90° apart because the box is rectangular. Turning the box swings both legs together: one VP comes in, the other runs out. Using a different angle draws a prism with that corner angle, the same view of a different object.
+
+5. One-point is two-point with the box turned square. At 0° one leg runs along the horizon and never meets it; that VP is at infinity and those edges stay parallel to the horizon. The other leg points straight at CV, which is where the receding edges meet.
+
+6. Three-point is a tilted line of sight. Sliding the horizon up or down the page only changes eye height. Tilting the line of sight tilts the window with it: verticals converge to VP3 at D / tan(tilt) above or below CV, and the horizon moves to D · tan(tilt) on the other side of CV. The two horizontal VPs spread apart by 1 / cos(tilt), which is why the SP folded about the horizon sits D / cos(tilt) below it.
+
+7. Wide-angle and telephoto are just D. Small D: SP close to the sheet, VPs close together, a small cone circle and fast convergence (wide-angle look). Large D: convergence flattens, the circle grows, the VPs run off the sheet (telephoto look). The front edge of the box stays the same size because it sits on the window.
+
+8. A camera lens is D plus a frame. The focal length is D scaled to the sheet: D = focal length × frame width ÷ sensor width. The sensor is the frame; the lens's diagonal angle of view is the cone, so the frame sits inscribed in the circle. A 60° cone is about a 37 mm lens on full frame; 50 mm gives 47°; 24 mm gives 84°, which is why a wide lens warps boxes near the frame edge.
+
+## Formulas (quick reference)
+
+- Cone radius on the sheet: r = D · tan(cone ÷ 2). A 60° cone gives r ≈ 0.58 · D.
+- Viewing distance from a chosen composition circle: D = r ÷ tan(30°) ≈ 1.73 · r.
+- Station point: on the vertical through CV, D below the horizon (D ÷ cos(tilt) when tilted).
+- Vanishing points of a box rotated θ: VP1 = D · cot(θ), VP2 = −D · tan(θ) from CV along the horizon. At 45° both are at ±D.
+- Three-point with line of sight tilted by φ: horizon at −D · tan(φ); VP3 = D · cot(φ); horizontal VPs spread by 1 ÷ cos(φ).
+- Camera lens: D = f × frame width ÷ sensor width; cone = 2 · atan(sensor diagonal ÷ 2f).
+
+## How to plot a box on paper with this method
+
+1. Draw the horizon line and a vertical through the centre of vision CV.
+2. Decide the size of the drawing, circle it (radius r) and place the station point SP on the vertical, D = r ÷ tan(30°) below the horizon. That circle is now your 60° cone of vision.
+3. From SP draw two legs 90° apart, parallel to the box's horizontal edges. Where they cross the horizon are VP1 and VP2.
+4. Draw the nearest vertical edge of the box at true height on the picture plane, then run its top and bottom to VP1 and VP2.
+5. To find true depths, draw the plan of the box above the horizon (the horizon is the picture plane seen edge-on) and project visual rays from SP to each plan corner; where a ray crosses the horizon is that corner's horizontal position in the drawing.
+6. Keep the whole box inside the cone circle and the vanishing points outside it.
+
+## Roadmap
+
+- A second object with its own rotation sharing the same SP and horizon.
+- A true cube through the diagonal vanishing point and measuring points.
+- A step-by-step mode revealing one element at a time with the paper instruction for that step.
