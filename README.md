@@ -7,12 +7,14 @@ Every line on the sheet (horizon, station point, cone of vision, legs, vanishing
 
 ## Run locally
 
-Static site, no build step.
+Static site, no build step. Navigation uses clean URLs (`/about`, not `/about.html`), which Vercel rewrites in production, so use a local server that does the same:
 
 ```sh
-python3 -m http.server 8000
-# open http://localhost:8000
+npx serve .
+# open the printed URL; /about resolves to about.html
 ```
+
+`vercel dev` works too. A plain `python3 -m http.server` serves the pages but 404s on `/about`.
 
 ## Layout
 

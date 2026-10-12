@@ -1,44 +1,27 @@
 # knowperspective.art: free, open educational tool. Everyone is welcome to crawl it,
 # including AI search and assistant crawlers. Machine-readable summary at /llms.txt.
+# One rule group shared by every agent: named bots are listed so the welcome is explicit,
+# and they inherit the same /tools/ exclusion (the OG-image source) as everyone else.
 User-agent: *
-Allow: /
-Disallow: /tools/
-
 User-agent: GPTBot
-Allow: /
 User-agent: OAI-SearchBot
-Allow: /
 User-agent: ChatGPT-User
-Allow: /
 User-agent: ClaudeBot
-Allow: /
 User-agent: Claude-SearchBot
-Allow: /
 User-agent: Claude-User
-Allow: /
 User-agent: anthropic-ai
-Allow: /
 User-agent: PerplexityBot
-Allow: /
 User-agent: Perplexity-User
-Allow: /
 User-agent: Google-Extended
-Allow: /
 User-agent: Applebot-Extended
-Allow: /
 User-agent: Amazonbot
-Allow: /
 User-agent: meta-externalagent
-Allow: /
 User-agent: CCBot
-Allow: /
 User-agent: DuckAssistBot
-Allow: /
 User-agent: YouBot
-Allow: /
 User-agent: cohere-ai
-Allow: /
 User-agent: Bytespider
 Allow: /
+Disallow: /tools/
 
 Sitemap: https://knowperspective.art/sitemap.xml
