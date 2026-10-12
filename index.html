@@ -118,7 +118,6 @@
 </nav>
 <main>
   <header>
-    <div class="eyebrow">Folded-plan construction · 1, 2 and 3-point</div>
     <h1>Perspective Lab</h1>
     <p>Move the station point, viewing distance, cone of vision, 90° legs and vanishing points. The construction and the box update together. Drag the sheet to pan, scroll to zoom.</p>
     <div class="presets" id="presets"><span class="eyebrow">Presets</span></div>
@@ -128,20 +127,20 @@
   <div class="stage">
     <aside class="elements" id="elements">
       <div class="eyebrow">Elements on the sheet</div>
-      <p class="lead">Hover to light one up on the sheet, click to keep it lit.</p>
-      <button class="el" type="button" data-key="horizon" style="--sw:var(--red)"><i></i><b>Horizon line</b>
+      <p class="lead">Hover to light one up on the sheet. Click to keep it lit and read what it does.</p>
+      <button class="el" type="button" data-key="horizon" style="--sw:var(--red)" aria-expanded="false"><i></i><b>Horizon line</b><span class="chev" aria-hidden="true"></span>
         <span>Your eye level, seen edge-on. VP1 and VP2 sit on this line. Tilt moves it. Changing eye height only moves the cube against it.</span></button>
-      <button class="el" type="button" data-key="axis" style="--sw:var(--red)"><i class="dashed"></i><b>Vertical through CV</b>
+      <button class="el" type="button" data-key="axis" style="--sw:var(--red)" aria-expanded="false"><i class="dashed"></i><b>Vertical through CV</b><span class="chev" aria-hidden="true"></span>
         <span>Your line of sight, folded flat. CV is where it meets the horizon. SP, the cone circle and VP3 sit on this vertical. Everything is measured from it.</span></button>
-      <button class="el" type="button" data-key="sp" style="--sw:var(--red)"><i class="dot"></i><b>Station point SP</b>
+      <button class="el" type="button" data-key="sp" style="--sw:var(--red)" aria-expanded="false"><i class="dot"></i><b>Station point SP</b><span class="chev" aria-hidden="true"></span>
         <span>Your eye, folded down onto the sheet, D below the horizon. Set the cone, the 90° corner and the visual rays from here. Changing D moves SP and scales the construction.</span></button>
-      <button class="el" type="button" data-key="cone" style="--sw:var(--red)"><i class="ring"></i><b>Cone of vision</b>
+      <button class="el" type="button" data-key="cone" style="--sw:var(--red)" aria-expanded="false"><i class="ring"></i><b>Cone of vision</b><span class="chev" aria-hidden="true"></span>
         <span>Where a 60° cone from SP cuts the window. Its radius is D · tan 30°. Use it as a limit. Keep the cube inside it and the VPs outside it. D and the cone angle change its size.</span></button>
-      <button class="el" type="button" data-key="rays" style="--sw:var(--red)"><i></i><b>Lines to the cone</b>
+      <button class="el" type="button" data-key="rays" style="--sw:var(--red)" aria-expanded="false"><i></i><b>Lines to the cone</b><span class="chev" aria-hidden="true"></span>
         <span>The two sides of the cone, half the angle on each side of the axis. Where they hit the horizon gives the circle radius. Use them to draw the circle with a protractor.</span></button>
-      <button class="el" type="button" data-key="legs" style="--sw:var(--red)"><i></i><b>Lines from SP to the horizon</b>
+      <button class="el" type="button" data-key="legs" style="--sw:var(--red)" aria-expanded="false"><i></i><b>Lines from SP to the horizon</b><span class="chev" aria-hidden="true"></span>
         <span>Draw these two legs parallel to the cube's horizontal edges. They are 90° apart because the cube corner is 90°. Their hits on the horizon are VP1 and VP2. Rotation swings the pair. D pushes both points out. Tilt spreads them.</span></button>
-      <button class="el" type="button" data-key="vps" style="--sw:var(--green)"><i></i><b>Vanishing points</b>
+      <button class="el" type="button" data-key="vps" style="--sw:var(--green)" aria-expanded="false"><i></i><b>Vanishing points</b><span class="chev" aria-hidden="true"></span>
         <span>Where parallel edges meet. VP1 and VP2 come from the legs. VP3 appears when you tilt your gaze. Once the points are placed, run each cube edge to its own VP.</span></button>
     </aside>
     <div class="canvas-wrap">
@@ -170,28 +169,31 @@
     <ul class="notes" id="notes"></ul>
   </section>
 
-  <section class="concepts">
-    <h2>How the pieces fit together</h2>
-    <div class="concept"><h3>The sheet is a window, SP is your eye</h3>
-      <p>Your line of sight hits the window at the centre of vision, CV. The distance from your eye to the window is <code>D</code>. For the paper method, fold the eye down onto the sheet and draw SP <code>D</code> below CV on the vertical through CV. Draw the plan on the same sheet, with the horizon as the window seen edge-on. A visual ray from SP to a plan corner crosses the horizon where that corner belongs in the drawing.</p></div>
-    <div class="concept"><h3>The horizon is your eye level</h3>
-      <p>Every horizontal direction vanishes somewhere on this line. Raise your eye and the box moves down against the horizon. Lower your eye and the box moves up. SP, the cone and the VPs stay put.</p></div>
-    <div class="concept"><h3>The cone of vision is a check, not a construction</h3>
-      <p>The eye sees comfortably within about 30° of the line of sight. On the sheet that is a circle around CV with radius <code>D · tan(30°) ≈ 0.58 · D</code>. Changing the cone changes nothing in the projection; it only changes how far from CV you allow yourself to draw before things look stretched to someone viewing the sheet from a normal distance. On paper it is how you find <code>D</code>: circle your composition, then <code>D = r / tan(30°)</code>. The button under Advanced does exactly that.</p></div>
-    <div class="concept"><h3>The box corner sets the 90°</h3>
-      <p>From SP draw two legs parallel to the box's two horizontal edge directions. Where they hit the horizon are VP1 and VP2. The legs are 90° apart because the box is rectangular. Turn the box and both legs swing together. One VP comes in, the other runs out. Use a different angle and you are drawing a prism with that corner angle.</p></div>
-    <div class="concept"><h3>One-point is two-point with the box turned square</h3>
-      <p>At 0° one leg runs along the horizon and never meets it. That VP is at infinity, so those edges stay parallel to the horizon. The other leg points straight at CV, which is where the receding edges meet. Nothing else changes.</p></div>
-    <div class="concept"><h3>Three-point is a tilted line of sight</h3>
-      <p>Sliding the horizon up or down the page only changes eye height. Tilt the line of sight instead and the window tilts with it: verticals converge to VP3 at <code>D / tan(tilt)</code> above or below CV, and the horizon moves to <code>D · tan(tilt)</code> on the other side of CV. The two horizontal VPs spread apart by <code>1 / cos(tilt)</code>, which is why the SP folded about the horizon now sits <code>D / cos(tilt)</code> below it.</p></div>
-    <div class="concept"><h3>Wide-angle and telephoto are just D</h3>
-      <p>Small <code>D</code> puts SP close to the sheet. The VPs crowd in, the cone circle shrinks and convergence gets fast. That is the wide-angle look. Large <code>D</code> flattens convergence, grows the circle and sends the VPs off the sheet. That is the telephoto look. The front edge of the box stays the same size because it sits on the window.</p></div>
-    <div class="concept"><h3>A camera lens is D plus a frame</h3>
-      <p>The focal length is <code>D</code>, scaled to the sheet; the sensor is the frame; the lens's diagonal angle of view is the cone, and the frame sits inscribed in it. A 60° cone is about a 37 mm lens on full frame. 50 mm gives 47°, 24 mm gives 84°, which is why a wide lens warps boxes near the frame edge: with 84° the VPs of a 45° box fall inside the circle.</p></div>
+  <section class="concepts" aria-labelledby="concepts-h">
+    <h2 id="concepts-h">How the pieces fit together</h2>
+    <div class="acc">
+    <details class="concept" name="concepts"><summary><h3>The sheet is a window, SP is your eye</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>Your line of sight hits the window at the centre of vision, CV. The distance from your eye to the window is <code>D</code>. For the paper method, fold the eye down onto the sheet and draw SP <code>D</code> below CV on the vertical through CV. Draw the plan on the same sheet, with the horizon as the window seen edge-on. A visual ray from SP to a plan corner crosses the horizon where that corner belongs in the drawing.</p></details>
+    <details class="concept" name="concepts"><summary><h3>The horizon is your eye level</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>Every horizontal direction vanishes somewhere on this line. Raise your eye and the box moves down against the horizon. Lower your eye and the box moves up. SP, the cone and the VPs stay put.</p></details>
+    <details class="concept" name="concepts"><summary><h3>The cone of vision is a check, not a construction</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>The eye sees comfortably within about 30° of the line of sight. On the sheet that is a circle around CV with radius <code>D · tan(30°) ≈ 0.58 · D</code>. Changing the cone changes nothing in the projection; it only changes how far from CV you allow yourself to draw before things look stretched to someone viewing the sheet from a normal distance. On paper it is how you find <code>D</code>: circle your composition, then <code>D = r / tan(30°)</code>. The button under Advanced does exactly that.</p></details>
+    <details class="concept" name="concepts"><summary><h3>The box corner sets the 90°</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>From SP draw two legs parallel to the box's two horizontal edge directions. Where they hit the horizon are VP1 and VP2. The legs are 90° apart because the box is rectangular. Turn the box and both legs swing together. One VP comes in, the other runs out. Use a different angle and you are drawing a prism with that corner angle.</p></details>
+    <details class="concept" name="concepts"><summary><h3>One-point is two-point with the box turned square</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>At 0° one leg runs along the horizon and never meets it. That VP is at infinity, so those edges stay parallel to the horizon. The other leg points straight at CV, which is where the receding edges meet. Nothing else changes.</p></details>
+    <details class="concept" name="concepts"><summary><h3>Three-point is a tilted line of sight</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>Sliding the horizon up or down the page only changes eye height. Tilt the line of sight instead and the window tilts with it: verticals converge to VP3 at <code>D / tan(tilt)</code> above or below CV, and the horizon moves to <code>D · tan(tilt)</code> on the other side of CV. The two horizontal VPs spread apart by <code>1 / cos(tilt)</code>, which is why the SP folded about the horizon now sits <code>D / cos(tilt)</code> below it.</p></details>
+    <details class="concept" name="concepts"><summary><h3>Wide-angle and telephoto are just D</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>Small <code>D</code> puts SP close to the sheet. The VPs crowd in, the cone circle shrinks and convergence gets fast. That is the wide-angle look. Large <code>D</code> flattens convergence, grows the circle and sends the VPs off the sheet. That is the telephoto look. The front edge of the box stays the same size because it sits on the window.</p></details>
+    <details class="concept" name="concepts"><summary><h3>A camera lens is D plus a frame</h3><span class="chev" aria-hidden="true"></span></summary>
+      <p>The focal length is <code>D</code>, scaled to the sheet; the sensor is the frame; the lens's diagonal angle of view is the cone, and the frame sits inscribed in it. A 60° cone is about a 37 mm lens on full frame. 50 mm gives 47°, 24 mm gives 84°, which is why a wide lens warps boxes near the frame edge: with 84° the VPs of a 45° box fall inside the circle.</p></details>
+    </div>
   </section>
 
   <section class="formulas" aria-labelledby="formulas-h">
-    <h2 id="formulas-h">Quick reference</h2>
+    <details class="ref">
+    <summary><h2 id="formulas-h">Quick reference</h2><span class="ref-sub">Formulas for D, the cone, SP, the VPs and lenses</span><span class="chev" aria-hidden="true"></span></summary>
     <dl class="formula-list">
       <dt>Cone of vision radius on the sheet</dt><dd><code>r = D · tan(cone ÷ 2)</code>, so a 60° cone gives <code>r ≈ 0.58 · D</code></dd>
       <dt>Viewing distance from a chosen composition circle</dt><dd><code>D = r ÷ tan(30°) ≈ 1.73 · r</code></dd>
@@ -200,11 +202,12 @@
       <dt>Three-point, line of sight tilted by φ</dt><dd>Horizon moves to <code>−D · tan(φ)</code>, verticals meet at <code>VP3 = D · cot(φ)</code>, horizontal VPs spread by <code>1 ÷ cos(φ)</code></dd>
       <dt>Camera lens</dt><dd><code>D = focal length × frame width ÷ sensor width</code>; cone = diagonal angle of view <code>2 · atan(sensor diagonal ÷ 2f)</code>; 60° ≈ 37 mm on full frame</dd>
     </dl>
+    </details>
   </section>
 </main>
 <footer class="site-footer">
-  <p class="maker">I built this tool for myself and other artists. Follow me on Instagram and tell me how you use it: <a href="https://www.instagram.com/andre_korev/" rel="me noreferrer" target="_blank">@andre_korev ↗</a>. Happy drawing!</p>
-  <span>Spotted a mistake? <button type="button" class="linkish" data-feedback>Suggest an edit</button> · Free, no account, no tracking · <a href="/about">about</a></span>
+  <span>Spotted a mistake? <button type="button" class="linkish" data-feedback>Suggest an edit</button></span>
+  <span>Free, no account, no tracking · <a href="/about">about</a></span>
 </footer>
 </div>
 <script src="/assets/lab.js"></script>

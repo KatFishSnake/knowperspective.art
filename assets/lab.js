@@ -354,7 +354,7 @@ function reading(g){
 function buildControls(){
   const root=$('controls'), groups={};
   const groupEl = name => {
-    if (!groups[name]){ const gEl=document.createElement('div'); gEl.className='group'+(name==='Advanced'?' adv':''); if (name==='Advanced') gEl.hidden=true; gEl.innerHTML='<div class="eyebrow">'+name+'</div>'; root.appendChild(gEl); groups[name]=gEl; }
+    if (!groups[name]){ const gEl=document.createElement('div'); gEl.className='group'+(name==='Advanced'?' adv':''); if (name==='Advanced') gEl.hidden=true; gEl.innerHTML= name==='Viewer' ? '<div class="eyebrow group-head"><span>Viewer</span><button type="button" class="btn btn-sm" id="reset-viewer">Reset to default</button></div>' : '<div class="eyebrow">'+name+'</div>'; root.appendChild(gEl); groups[name]=gEl; }
     return groups[name];
   };
   for (const s of SLIDERS){
@@ -393,6 +393,10 @@ function buildControls(){
   cel.innerHTML='<label for="ctl-corner">'+cs.label+'</label><span class="val" id="val-corner"></span><input type="range" id="ctl-corner" min="'+cs.min+'" max="'+cs.max+'" step="'+cs.step+'" value="'+S.corner+'"><div class="hint">'+cs.hint+'</div>';
   advG.appendChild(cel);
   cel.querySelector('input').addEventListener('input', e=>{ S.corner=parseFloat(e.target.value); setActivePreset(null); syncVals(); draw(); });
+  $('reset-viewer').addEventListener('click', ()=>{
+    for (const k of ['D','cone','tilt','eye']) S[k]=DEFAULTS[k];
+    S.lens.on=false; setActivePreset(null); syncVals(); fit();
+  });
   const advBtn=document.createElement('button'); advBtn.type='button'; advBtn.className='btn'; advBtn.id='adv-rail'; advBtn.textContent='Show advanced controls';
   root.appendChild(advBtn); advBtn.addEventListener('click', ()=>setAdv(!S.adv));
 
@@ -493,7 +497,7 @@ document.querySelectorAll('.el').forEach(b=>{
   b.addEventListener('blur', ()=>{ if (!S.pin){ S.hi=null; draw(); } });
   b.addEventListener('click', ()=>{
     S.pin = S.pin===k ? null : k; S.hi = S.pin;
-    document.querySelectorAll('.el').forEach(x=>x.classList.toggle('pinned', x.dataset.key===S.pin));
+    document.querySelectorAll('.el').forEach(x=>{ const on=x.dataset.key===S.pin; x.classList.toggle('pinned', on); x.setAttribute('aria-expanded', on); });
     draw();
   });
 });
