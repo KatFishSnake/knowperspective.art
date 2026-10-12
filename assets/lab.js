@@ -20,7 +20,7 @@ const SLIDERS = [
   {group:'Viewer', key:'D', label:'Viewing distance D', min:80, max:1500, step:5, unit:' px',
    hint:'Eye-to-window distance. SP sits this far below the horizon. Increase D and convergence flattens, the VPs move out and the cone circle grows.'},
   {group:'Viewer', key:'cone', label:'Cone of vision', min:20, max:130, step:1, unit:'°',
-   hint:'Comfort zone around the line of sight. This only sets the circle radius, D·tan(half angle). The drawing does not change.'},
+   hint:'Comfort zone around the line of sight. Sets the circle radius, D·tan(half angle), and fades the sheet beyond it. The projection itself does not change.'},
   {group:'Viewer', key:'tilt', label:'Tilt of line of sight', min:-45, max:45, step:1, unit:'°',
    hint:'Tilt your gaze up or down. Verticals converge to VP3 and the horizon moves off CV.'},
   {group:'Viewer', key:'eye', label:'Eye height', min:-1, max:4, step:0.05, unit:' u',
@@ -37,8 +37,7 @@ const SLIDERS = [
 const SHOW = [
   {cat:'Construction', items:[['cone','Cone of vision circle'],['rays','Cone rays from SP'],['legs','Legs from SP to the VPs'],['labels','Labels']]},
   {cat:'Drawing', items:[['ext','Edge lines running to the VPs'],['grid','Ground grid'],['hidden','Hidden edges, dashed']]},
-  {cat:'Plan method', items:[['footprint','Plan of the box on the sheet'],['visual','Visual rays SP → plan corners']]},
-  {cat:'Lens', adv:true, items:[['frame','Camera frame on the sheet']]}
+  {cat:'Plan method', items:[['footprint','Plan of the box on the sheet'],['visual','Visual rays SP → plan corners']]}
 ];
 const PRESETS = [
   {name:'One-point', vals:{rot:0, x0:-120, w:1.5, d:1}},
@@ -146,7 +145,7 @@ function colors(){
   const cs = getComputedStyle(document.documentElement), v = k => cs.getPropertyValue(k).trim();
   return {paper:v('--paper'), ink:v('--ink'), ink2:v('--ink-2'), ink3:v('--ink-3'), red:v('--red'), redSoft:v('--red-soft'),
           green:v('--green'), greenSoft:v('--green-soft'), blue:v('--blue'), blueSoft:v('--blue-soft'),
-          graphite:v('--graphite'), graphiteSoft:v('--graphite-soft'), grid:v('--grid'), amber:v('--amber')};
+          graphite:v('--graphite'), graphiteSoft:v('--graphite-soft'), grid:v('--grid'), amber:v('--amber'), fade:v('--fade')};
 }
 const toS = p => ({x: W/2 + (p.x-S.cx)*S.zoom, y: H/2 - (p.y-S.cy)*S.zoom});
 const toP = (sx,sy) => ({x: S.cx + (sx-W/2)/S.zoom, y: S.cy - (sy-H/2)/S.zoom});
@@ -283,6 +282,16 @@ function drawBox(g){
   if (S.show.hidden) for (const e of edges) if (!e.v) pline(e.sg[0],e.sg[1],C.graphiteSoft,1,[5,4]);
   for (const e of edges) if (e.v) pline(e.sg[0],e.sg[1],C.graphite,1.8);
 }
+/* The cone is a check: it does not move anything, it judges what is drawn. So the fade sits
+   over the drawing (grid, plan, box) and under the construction, whose points (SP, the VPs)
+   belong outside the circle. */
+function drawConeFade(g){
+  if (!S.show.cone) return;
+  const cv=toS({x:0,y:0}), rz=g.r*S.zoom;
+  const wash=()=>{ ctx.beginPath(); ctx.rect(0,0,W,H); ctx.arc(cv.x,cv.y,rz,0,Math.PI*2,true); ctx.fillStyle=C.fade; ctx.fill(); };
+  wash(); if (S.hi==='cone') wash();
+  for (const p of projectedCorners(g)) if (Math.hypot(p.x,p.y)>g.r) dotAt(toS(p), C.amber, 3);
+}
 function drawVPs(g){ el('vps', ()=>{
   if (g.VP1) marker(g.VP1,'VP1',C.green, signed(g.VP1.x)+' from CV');
   if (g.VP2) marker(g.VP2,'VP2',C.green, signed(g.VP2.x)+' from CV');
@@ -294,9 +303,10 @@ function draw(){
   ctx.fillStyle=C.paper; ctx.fillRect(0,0,W,H);
   if (S.show.grid) drawGrid(g);
   if (S.tilt===0) drawPlan(g);
+  drawBox(g);
+  drawConeFade(g);
   drawFrame();
   drawConstruction(g);
-  drawBox(g);
   drawVPs(g);
   reading(g);
 }
@@ -334,7 +344,7 @@ function reading(g){
     if (vp && Math.hypot(vp.x,vp.y)<g.r) push('bad', n+' is inside the cone of vision ('+Math.round(Math.hypot(vp.x,vp.y))+' px from CV, circle radius '+Math.round(g.r)+'). Edges heading there converge so fast that the box looks warped. Increase D, or turn the box so this VP moves out.');
   });
   const pc=projectedCorners(g), outside=pc.filter(p=>Math.hypot(p.x,p.y)>g.r).length;
-  if (outside>0) push('warn', outside+' of '+pc.length+' box corners lie outside the cone. Those parts will look stretched. Increase D, shrink the box, or slide it toward CV. Advanced can find the smallest D that fits.');
+  if (outside>0) push('warn', outside+' of '+pc.length+' box corners lie outside the cone. Those parts will look stretched. Increase D, shrink the box, or slide it toward CV. Fit D to the box, under the cone slider, finds the smallest D that fits.');
   else push('good','The whole box sits inside the cone of vision.');
   [['VP1',g.VP1],['VP2',g.VP2],['VP3',g.VP3]].forEach(([n,vp])=>{
     if (vp && !onScreen(toS(vp))) push('info', n+' is '+Math.round(Math.hypot(vp.x,vp.y))+' px from CV, beyond the visible sheet. On paper, tape on an extension or use a long straightedge. Zoom out to see it.');
@@ -354,17 +364,34 @@ function reading(g){
 function buildControls(){
   const root=$('controls'), groups={};
   const groupEl = name => {
-    if (!groups[name]){ const gEl=document.createElement('div'); gEl.className='group'+(name==='Advanced'?' adv':''); if (name==='Advanced') gEl.hidden=true; gEl.innerHTML= name==='Viewer' ? '<div class="eyebrow group-head"><span>Viewer</span><button type="button" class="btn btn-sm" id="reset-viewer">Reset to default</button></div>' : '<div class="eyebrow">'+name+'</div>'; root.appendChild(gEl); groups[name]=gEl; }
+    if (!groups[name]){ const gEl=document.createElement('div'); gEl.className='group'; gEl.innerHTML= name==='Viewer' ? '<div class="eyebrow group-head"><span>Viewer</span><button type="button" class="btn btn-sm" id="reset-viewer">Reset to default</button></div>' : '<div class="eyebrow">'+name+'</div>'; root.appendChild(gEl); groups[name]=gEl; }
     return groups[name];
   };
   for (const s of SLIDERS){
-    if (s.group==='Advanced') continue;
-    const el=document.createElement('div'); el.className='ctl'; el.id='ctl-row-'+s.key;
+    const el=document.createElement('div'); el.className='ctl'+(s.group==='Advanced'?' adv':''); el.id='ctl-row-'+s.key; if (s.group==='Advanced') el.hidden=true;
     el.innerHTML='<label for="ctl-'+s.key+'">'+s.label+'</label><span class="val" id="val-'+s.key+'"></span>'+
       '<input type="range" id="ctl-'+s.key+'" min="'+s.min+'" max="'+s.max+'" step="'+s.step+'" value="'+S[s.key]+'">'+
       (s.hint?'<div class="hint" id="hint-'+s.key+'">'+s.hint+'</div>':'');
-    groupEl(s.group).appendChild(el);
     el.querySelector('input').addEventListener('input', e=>{ S[s.key]=parseFloat(e.target.value); setActivePreset(null); syncVals(); draw(); });
+    if (s.key==='cone'){
+      // The cone slider and the camera controls are two readings of the same limit, so they share one slot.
+      const tabs=document.createElement('div'); tabs.className='tabs'; tabs.id='cone-tabs';
+      tabs.innerHTML='<div class="seg" role="tablist" aria-label="Cone of vision or camera">'+
+          '<button type="button" role="tab" id="tab-cone" aria-selected="true" aria-controls="pane-cone">Cone of vision</button>'+
+          '<button type="button" role="tab" id="tab-cam" aria-selected="false" aria-controls="pane-cam">Camera</button></div>'+
+        '<div class="pane" id="pane-cone" role="tabpanel"></div>'+
+        '<div class="pane" id="pane-cam" role="tabpanel" hidden>'+
+          '<p class="hint">A lens is a cone with a frame. Focal length and sensor set D and the cone, so the D slider locks.</p>'+
+          '<div class="ctl"><label for="lens-f">Focal length</label><span class="val" id="val-lens-f"></span><input type="range" id="lens-f" min="4" max="200" step="0.1" value="'+S.lens.f+'"><div class="hint">Real focal length of the lens. D = focal length × frame width ÷ sensor width.</div></div>'+
+          '<div class="ctl"><label for="lens-sensor">Sensor format</label><select id="lens-sensor">'+Object.entries(SENSORS).map(([k,v])=>'<option value="'+k+'">'+v.name+'</option>').join('')+'</select><div class="hint">The cone becomes the lens’s diagonal angle of view, so the frame sits inscribed in the circle.</div></div>'+
+          '<div class="ctl"><label for="lens-frame">Frame width on the sheet</label><span class="val" id="val-lens-frame"></span><input type="range" id="lens-frame" min="240" max="900" step="10" value="'+S.lens.frame+'"><div class="hint">How wide the photo is on the sheet. D scales with this size.</div></div>'+
+          '<label class="check"><input type="checkbox" id="tog-frame"'+(S.show.frame?' checked':'')+'><span>Draw the camera frame on the sheet</span></label>'+
+          '<div class="lens-out" id="lens-out"></div>'+
+        '</div>';
+      groupEl(s.group).appendChild(tabs);
+      const pane=tabs.querySelector('#pane-cone'); pane.appendChild(el);
+      pane.insertAdjacentHTML('beforeend','<div class="ctl"><label>Find D from the cone</label><button class="btn" id="derive-d" type="button">Fit D to the box</button><div class="hint">On paper, circle the composition first, then place SP so that circle is the cone. This sets the smallest D that keeps every box corner inside the circle.</div></div>');
+    } else groupEl(s.group==='Advanced' ? 'Box' : s.group).appendChild(el);
   }
   const showG=groupEl('Show');
   for (const cat of SHOW){
@@ -377,22 +404,6 @@ function buildControls(){
     }
     showG.appendChild(sc); showG.appendChild(list);
   }
-  const advG=groupEl('Advanced');
-  advG.innerHTML='<div class="eyebrow">Advanced</div>'+
-    '<div class="subcat">Camera lens</div>'+
-    '<label class="check"><input type="checkbox" id="lens-on"><span>Use a camera lens. Focal length and sensor set D and the cone. Those two sliders lock.</span></label>'+
-    '<div class="ctl"><label for="lens-f">Focal length</label><span class="val" id="val-lens-f"></span><input type="range" id="lens-f" min="4" max="200" step="0.1" value="'+S.lens.f+'"><div class="hint">Real focal length of the lens. D = focal length × frame width ÷ sensor width.</div></div>'+
-    '<div class="ctl"><label for="lens-sensor">Sensor format</label><select id="lens-sensor">'+Object.entries(SENSORS).map(([k,v])=>'<option value="'+k+'">'+v.name+'</option>').join('')+'</select><div class="hint">The cone becomes the lens’s diagonal angle of view, so the frame sits inscribed in the circle.</div></div>'+
-    '<div class="ctl"><label for="lens-frame">Frame width on the sheet</label><span class="val" id="val-lens-frame"></span><input type="range" id="lens-frame" min="240" max="900" step="10" value="'+S.lens.frame+'"><div class="hint">How wide the photo is on the sheet. D scales with this size.</div></div>'+
-    '<div class="lens-out" id="lens-out"></div>'+
-    '<div class="subcat">Paper workflow</div>'+
-    '<div class="ctl"><label>Find D from the cone</label><button class="btn" id="derive-d" type="button">Fit D to the box</button><div class="hint">On paper, circle the composition first. Then place SP so that circle is the cone. This sets the smallest D that keeps every box corner inside the circle.</div></div>'+
-    '<div class="subcat">Object</div>';
-  const cs=SLIDERS.find(s=>s.key==='corner');
-  const cel=document.createElement('div'); cel.className='ctl'; cel.id='ctl-row-corner';
-  cel.innerHTML='<label for="ctl-corner">'+cs.label+'</label><span class="val" id="val-corner"></span><input type="range" id="ctl-corner" min="'+cs.min+'" max="'+cs.max+'" step="'+cs.step+'" value="'+S.corner+'"><div class="hint">'+cs.hint+'</div>';
-  advG.appendChild(cel);
-  cel.querySelector('input').addEventListener('input', e=>{ S.corner=parseFloat(e.target.value); setActivePreset(null); syncVals(); draw(); });
   $('reset-viewer').addEventListener('click', ()=>{
     for (const k of ['D','cone','tilt','eye']) S[k]=DEFAULTS[k];
     S.lens.on=false; setActivePreset(null); syncVals(); fit();
@@ -400,7 +411,10 @@ function buildControls(){
   const advBtn=document.createElement('button'); advBtn.type='button'; advBtn.className='btn'; advBtn.id='adv-rail'; advBtn.textContent='Show advanced controls';
   root.appendChild(advBtn); advBtn.addEventListener('click', ()=>setAdv(!S.adv));
 
-  $('lens-on').addEventListener('change', e=>{ S.lens.on=e.target.checked; lensApply(); setActivePreset(null); syncVals(); fit(); });
+  const setLens = on => { if (S.lens.on===on) return; S.lens.on=on; lensApply(); setActivePreset(null); syncVals(); fit(); };
+  $('tab-cone').addEventListener('click', ()=>setLens(false));
+  $('tab-cam').addEventListener('click', ()=>setLens(true));
+  $('tog-frame').addEventListener('change', e=>{ S.show.frame=e.target.checked; draw(); });
   $('lens-f').addEventListener('input', e=>{ S.lens.f=parseFloat(e.target.value); lensApply(); setActivePreset(null); syncVals(); draw(); });
   $('lens-sensor').addEventListener('change', e=>{ S.lens.sensor=e.target.value; lensApply(); setActivePreset(null); syncVals(); draw(); });
   $('lens-frame').addEventListener('input', e=>{ S.lens.frame=parseFloat(e.target.value); lensApply(); setActivePreset(null); syncVals(); draw(); });
@@ -439,15 +453,15 @@ function syncVals(){
     $('val-'+s.key).textContent=(s.step<1 ? (+v).toFixed(s.step<0.1?2:1) : Math.round(v))+s.unit;
     const locked = S.lens.on && (s.key==='D' || s.key==='cone');
     inp.disabled=locked; $('ctl-row-'+s.key).classList.toggle('locked', locked);
-    if (s.key==='D'||s.key==='cone'){ const h=$('hint-'+s.key); if (h) h.textContent = locked ? 'Set by the lens. Turn the lens off to move it.' : s.hint; }
+    if (s.key==='D'||s.key==='cone'){ const h=$('hint-'+s.key); if (h) h.textContent = locked ? 'Set by the camera. Switch back to Cone of vision to move it.' : s.hint; }
   }
-  $('lens-on').checked=S.lens.on;
+  $('tab-cone').setAttribute('aria-selected', !S.lens.on); $('tab-cam').setAttribute('aria-selected', S.lens.on);
+  $('pane-cone').hidden=S.lens.on; $('pane-cam').hidden=!S.lens.on;
   $('lens-f').value=S.lens.f; $('val-lens-f').textContent=S.lens.f+' mm';
   $('lens-sensor').value=S.lens.sensor;
   $('lens-frame').value=S.lens.frame; $('val-lens-frame').textContent=S.lens.frame+' px';
   const L=lensInfo();
-  $('lens-out').textContent = (S.lens.on?'':'(off) ')+Math.round(L.aov)+'° diagonal angle of view · '+Math.round(L.eq)+' mm full-frame equivalent · D = '+Math.round(L.D)+' px · cone radius '+Math.round(S.lens.frame*L.diag/(2*L.sensor.w))+' px';
-  $('derive-d').disabled=S.lens.on;
+  $('lens-out').textContent = 'cone = '+Math.round(L.aov)+'° diagonal angle of view · '+Math.round(L.eq)+' mm full-frame equivalent · D = '+Math.round(L.D)+' px · circle radius '+Math.round(S.lens.frame*L.diag/(2*L.sensor.w))+' px';
   $('zoom').value=S.zoom;
 }
 function fit(){

@@ -7,6 +7,7 @@
   --amber:#B8690F; --amber-soft:rgba(184,105,15,.14);
   --graphite:#2B2E33; --graphite-soft:rgba(43,46,51,.38);
   --grid:rgba(36,39,44,.09);
+  --fade:rgba(233,235,228,.62);
   --focus:#2B7BC4;
 }
 @media (prefers-color-scheme: dark){
@@ -20,6 +21,7 @@
     --amber:#E5A24B; --amber-soft:rgba(229,162,75,.16);
     --graphite:#E2E4DF; --graphite-soft:rgba(226,228,223,.42);
     --grid:rgba(230,231,227,.10);
+    --fade:rgba(35,38,43,.62);
     --focus:#69ADEC;
   }
 }
@@ -33,6 +35,7 @@
   --amber:#E5A24B; --amber-soft:rgba(229,162,75,.16);
   --graphite:#E2E4DF; --graphite-soft:rgba(226,228,223,.42);
   --grid:rgba(230,231,227,.10);
+  --fade:rgba(35,38,43,.62);
   --focus:#69ADEC;
 }
 *{box-sizing:border-box}

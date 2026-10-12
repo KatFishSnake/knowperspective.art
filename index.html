@@ -135,7 +135,7 @@
       <button class="el" type="button" data-key="sp" style="--sw:var(--red)" aria-expanded="false"><i class="dot"></i><b>Station point SP</b><span class="chev" aria-hidden="true"></span>
         <span>Your eye, folded down onto the sheet, D below the horizon. Set the cone, the 90° corner and the visual rays from here. Changing D moves SP and scales the construction.</span></button>
       <button class="el" type="button" data-key="cone" style="--sw:var(--red)" aria-expanded="false"><i class="ring"></i><b>Cone of vision</b><span class="chev" aria-hidden="true"></span>
-        <span>Where a 60° cone from SP cuts the window. Its radius is D · tan 30°. Use it as a limit. Keep the cube inside it and the VPs outside it. D and the cone angle change its size.</span></button>
+        <span>Where a 60° cone from SP cuts the window. Its radius is D · tan 30°. Use it as a limit: the sheet is faded beyond it, and box corners out there get an amber dot. Keep the cube inside it and the VPs outside it. D and the cone angle change its size.</span></button>
       <button class="el" type="button" data-key="rays" style="--sw:var(--red)" aria-expanded="false"><i></i><b>Lines to the cone</b><span class="chev" aria-hidden="true"></span>
         <span>The two sides of the cone, half the angle on each side of the axis. Where they hit the horizon gives the circle radius. Use them to draw the circle with a protractor.</span></button>
       <button class="el" type="button" data-key="legs" style="--sw:var(--red)" aria-expanded="false"><i></i><b>Lines from SP to the horizon</b><span class="chev" aria-hidden="true"></span>
@@ -156,6 +156,7 @@
         <span style="color:var(--green)"><i></i><span style="color:var(--ink-2)">vanishing points, converging edges</span></span>
         <span style="color:var(--blue)"><i></i><span style="color:var(--ink-2)">visual rays, plan method</span></span>
         <span style="color:var(--graphite)"><i></i><span style="color:var(--ink-2)">the box</span></span>
+        <span class="legend-fade"><i></i><span style="color:var(--ink-2)">outside the cone: forms look stretched</span></span>
       </div>
     </div>
     <aside class="controls" id="controls"></aside>
@@ -177,7 +178,7 @@
     <details class="concept" name="concepts"><summary><h3>The horizon is your eye level</h3><span class="chev" aria-hidden="true"></span></summary>
       <p>Every horizontal direction vanishes somewhere on this line. Raise your eye and the box moves down against the horizon. Lower your eye and the box moves up. SP, the cone and the VPs stay put.</p></details>
     <details class="concept" name="concepts"><summary><h3>The cone of vision is a check, not a construction</h3><span class="chev" aria-hidden="true"></span></summary>
-      <p>The eye sees comfortably within about 30° of the line of sight. On the sheet that is a circle around CV with radius <code>D · tan(30°) ≈ 0.58 · D</code>. Changing the cone changes nothing in the projection; it only changes how far from CV you allow yourself to draw before things look stretched to someone viewing the sheet from a normal distance. On paper it is how you find <code>D</code>: circle your composition, then <code>D = r / tan(30°)</code>. The button under Advanced does exactly that.</p></details>
+      <p>The eye sees comfortably within about 30° of the line of sight. On the sheet that is a circle around CV with radius <code>D · tan(30°) ≈ 0.58 · D</code>. Changing the cone changes nothing in the projection; it only changes how far from CV you allow yourself to draw before things look stretched to someone viewing the sheet from a normal distance. On paper it is how you find <code>D</code>: circle your composition, then <code>D = r / tan(30°)</code>. The Fit D button under the cone slider does exactly that. The faded sheet outside the circle is where forms start to look stretched; a camera lens, under the Camera tab, is the same limit with a frame.</p></details>
     <details class="concept" name="concepts"><summary><h3>The box corner sets the 90°</h3><span class="chev" aria-hidden="true"></span></summary>
       <p>From SP draw two legs parallel to the box's two horizontal edge directions. Where they hit the horizon are VP1 and VP2. The legs are 90° apart because the box is rectangular. Turn the box and both legs swing together. One VP comes in, the other runs out. Use a different angle and you are drawing a prism with that corner angle.</p></details>
     <details class="concept" name="concepts"><summary><h3>One-point is two-point with the box turned square</h3><span class="chev" aria-hidden="true"></span></summary>

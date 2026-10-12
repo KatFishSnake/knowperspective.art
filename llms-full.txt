@@ -15,7 +15,7 @@ Perspective Lab is an interactive simulation of the classical "folded-plan" pers
 - the two legs from SP to the horizon that locate the vanishing points VP1 and VP2,
 - VP3 when the line of sight is tilted.
 
-Sliders: viewing distance D, cone of vision angle, tilt of the line of sight, eye height, box rotation, width, depth, height, sideways position. Advanced: camera lens (focal length, sensor format, frame width), a button that derives D from the cone, box corner angle. Toggles: construction lines, edge lines to the VPs, ground grid, hidden edges, plan of the box on the sheet, visual rays, camera frame.
+Sliders: viewing distance D, cone of vision angle, tilt of the line of sight, eye height, box rotation, width, depth, height, sideways position. The cone of vision slider has a Camera tab: focal length, sensor format and frame width set D and the cone, with the frame drawn on the sheet. A Fit D button derives D from the cone. The sheet is faded outside the cone circle and box corners outside it are marked. Advanced: box corner angle. Toggles: construction lines, edge lines to the VPs, ground grid, hidden edges, plan of the box on the sheet, visual rays.
 
 ## The six elements and what each one is for
 

@@ -23,6 +23,7 @@ canvas.dragging{cursor:grabbing}
 .legend{position:absolute;right:10px;bottom:10px;display:flex;flex-direction:column;gap:3px;background:var(--panel);border:1px solid var(--line);padding:7px 10px;font-size:11.5px;color:var(--ink-2)}
 .legend span{display:flex;align-items:center;gap:7px}
 .legend i{display:inline-block;width:18px;height:0;border-top:2px solid currentColor}
+.legend .legend-fade i{height:10px;border:1px solid var(--line);background:var(--fade)}
 .controls{display:flex;flex-direction:column;gap:16px;background:var(--panel);border:1px solid var(--line);padding:16px 18px 18px}
 #adv-rail{padding:7px 12px;font-size:12.5px;margin-top:4px}
 .group{display:flex;flex-direction:column;gap:10px}
@@ -124,3 +125,11 @@ details[open] > summary .chev,.el.pinned .chev{transform:rotate(-135deg) transla
 /* keep the legend clear of the zoom bar on narrow sheets */
 @container (max-width:600px){ .legend{bottom:54px} }
 @container (max-width:380px){ .legend{display:none} }
+.tabs{display:flex;flex-direction:column;gap:10px}
+.seg{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--line);background:var(--paper)}
+.seg button{appearance:none;border:0;background:none;color:var(--ink-2);font:inherit;font-size:12.5px;font-weight:500;padding:5px 8px;cursor:pointer}
+.seg button + button{border-left:1px solid var(--line)}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+.pane{display:flex;flex-direction:column;gap:10px}
+.pane > p.hint{margin:0;font-size:12px;color:var(--ink-3);line-height:1.4}
