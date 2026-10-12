@@ -15,7 +15,7 @@
 <meta property="og:image" content="https://knowperspective.art/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta name="author" content="Andre">
+<meta name="author" content="André">
 <meta name="theme-color" content="#F3F4F0" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#1B1D21" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='26' r='17' fill='none' stroke='%23D23B2E' stroke-width='4'/%3E%3Cpath d='M32 4v56M6 26h52' stroke='%23D23B2E' stroke-width='3'/%3E%3Ccircle cx='32' cy='54' r='5' fill='%23D23B2E'/%3E%3C/svg%3E">
@@ -47,56 +47,42 @@
   <ul>
     <li><a href="/">Lab</a></li>
     <li><a href="/about" aria-current="page">About</a></li>
-    <li><a href="https://github.com/KatFishSnake/knowperspective.art">GitHub</a></li>
+    <li><button type="button" class="linkish" data-feedback>Feedback</button></li>
   </ul>
 </nav>
 
 <main class="prose">
   <div class="eyebrow">About</div>
   <h1>Perspective you can push around</h1>
-  <p class="lede">knowperspective.art is a free study tool for artists who are learning to construct linear perspective by hand: placing a station point, a cone of vision and vanishing points on the sheet, then plotting a box from them instead of eyeballing it.</p>
+  <p class="lede">knowperspective.art is a free study tool for artists learning to build linear perspective by hand. Place a station point, a cone of vision and vanishing points on the sheet, then plot a box from them.</p>
+
+  <aside class="maker-card" aria-label="Who made this">
+    <div class="eyebrow">Hi, I'm André.</div>
+    <h2>I built this tool for myself and other artists.</h2>
+    <p>I'm learning perspective by hand and wanted to see why every line in the construction sits where it does. If the lab helps you, follow me on Instagram or send me a message about how you use it. Happy drawing!</p>
+    <a class="maker-cta" href="https://www.instagram.com/andre_korev/" rel="me noreferrer" target="_blank">Follow or message me on Instagram <span aria-hidden="true">↗</span></a>
+  </aside>
 
   <h2>Who it is for</h2>
-  <p>Illustrators, concept and comic artists, architecture and urban sketchers, and anyone working through a perspective book or course who has drawn the textbook diagram and still cannot say why each line is there. It assumes you know what a horizon and a vanishing point are. It does not assume anything else.</p>
+  <p>Illustrators, concept and comic artists, sketchers, and anyone working through a perspective book who has copied the diagram but can't explain the lines. You only need to know what a horizon and a vanishing point are.</p>
 
   <h2>Why it exists</h2>
-  <p>The construction has only a handful of elements: the horizon, the vertical through the centre of vision, the station point, the cone of vision, the lines to the cone, and the lines from the station point to the horizon that give you the vanishing points. Most explanations show them as a finished diagram. What they rarely show is how the elements depend on each other. Push the station point down and the vanishing points spread, the cone grows and the box flattens. Turn the box and one vanishing point comes in while the other runs off the sheet. Tilt your gaze and a third one appears.</p>
-  <p>The lab draws every line from a single projection of a real box through a real eye point, so nothing on the sheet can disagree with anything else. Move one thing and everything that depends on it moves with it. That is the fastest way we know to turn the diagram into understanding.</p>
-
-  <h2>What it teaches</h2>
-  <ul>
-    <li><strong>The sheet is a window and the station point is your eye,</strong> folded down onto the paper at the viewing distance D.</li>
-    <li><strong>The horizon is your eye level.</strong> Every horizontal direction vanishes somewhere on it.</li>
-    <li><strong>The cone of vision is a check, not a construction.</strong> It changes nothing in the drawing; it tells you how far from the centre you may draw before things stretch, and on paper it is how you find D.</li>
-    <li><strong>The 90° belongs to the box, not to your eye.</strong> The two legs from the station point are parallel to the box's edges, and where they hit the horizon are the vanishing points.</li>
-    <li><strong>One-, two- and three-point are one system.</strong> Turn the box square and you get one-point. Tilt your line of sight and you get three-point.</li>
-    <li><strong>Wide-angle and telephoto are just D,</strong> and a camera lens is D plus a frame.</li>
-  </ul>
+  <p>Most explanations show the finished diagram. The lab draws every line from one box and one eye point, so you can see what each part does when you move it. Push the station point down and the vanishing points spread. Turn the box and one vanishing point comes in while the other runs off the sheet. Tilt your gaze and a third one appears.</p>
 
   <h2>How to use it</h2>
   <ol>
-    <li>Start from a preset, then drag the sliders and watch the sheet and the reading panel underneath it.</li>
-    <li>Hover the element list on the left to light up one line at a time and read what it is for.</li>
-    <li>Turn on the plan method to see the classical construction: the plan of the box folded onto the sheet, with visual rays from the station point locating every corner.</li>
-    <li>Open Advanced for camera lenses, the rhombic-prism experiment, and a button that finds D from the cone the way you would on paper.</li>
+    <li>Start from a preset, then drag the sliders.</li>
+    <li>Hover the element list on the left to light up one line at a time.</li>
+    <li>Open Advanced for camera lenses and a button that finds D from the cone, the way you would on paper.</li>
   </ol>
   <a class="cta" href="/">Open the lab</a>
-
-  <h2>What is coming</h2>
-  <ul class="roadmap">
-    <li><b>A second object</b> with its own rotation, sharing the same station point and horizon.</li>
-    <li><b>A true cube</b> through the diagonal vanishing point and measuring points, so depths are plotted, not guessed.</li>
-    <li><b>A step-by-step mode</b> that reveals one element at a time with the paper instruction for that step.</li>
-  </ul>
-
-  <h2>Credits</h2>
-  <p>Built by Andre while studying perspective. The code is open source on <a href="https://github.com/KatFishSnake/knowperspective.art">GitHub</a>; corrections and ideas are welcome there. It runs entirely in your browser and collects nothing.</p>
 </main>
 
 <footer class="site-footer">
-  <span>Made for artists learning to construct perspective by hand.</span>
-  <span>Free and open source · <a href="https://github.com/KatFishSnake/knowperspective.art">source on GitHub</a> · <a href="/about">about</a></span>
+  <p class="maker">I built this tool for myself and other artists. Follow me on Instagram and tell me how you use it: <a href="https://www.instagram.com/andre_korev/" rel="me noreferrer" target="_blank">@andre_korev ↗</a>. Happy drawing!</p>
+  <span>Spotted a mistake? <button type="button" class="linkish" data-feedback>Suggest an edit</button> · Free, no account, no tracking · <a href="/about">about</a></span>
 </footer>
 </div>
+<script src="/assets/feedback.js" defer></script>
 </body>
 </html>

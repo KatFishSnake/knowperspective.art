@@ -1,7 +1,7 @@
 # knowperspective.art: perspective construction, in full
 
 Source: https://knowperspective.art/ (interactive tool) and https://knowperspective.art/about
-Author: Andre. Free and open source. Last updated 2026-10-12.
+Author: André (Instagram: @andre_korev). Free. Last updated 2026-10-12.
 
 ## What the tool is
 
@@ -68,9 +68,3 @@ Vanishing points. Where parallel edges meet. VP1 and VP2 come from the legs, VP3
 4. Draw the nearest vertical edge of the box at true height on the picture plane, then run its top and bottom to VP1 and VP2.
 5. To find true depths, draw the plan of the box above the horizon (the horizon is the picture plane seen edge-on) and project visual rays from SP to each plan corner; where a ray crosses the horizon is that corner's horizontal position in the drawing.
 6. Keep the whole box inside the cone circle and the vanishing points outside it.
-
-## Roadmap
-
-- A second object with its own rotation sharing the same SP and horizon.
-- A true cube through the diagonal vanishing point and measuring points.
-- A step-by-step mode revealing one element at a time with the paper instruction for that step.

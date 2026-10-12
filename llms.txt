@@ -7,12 +7,12 @@ Made for illustrators, concept artists, architecture sketchers and art students 
 ## Pages
 
 - [Perspective Lab](https://knowperspective.art/): the interactive tool, with an explanation of each sheet element, live readings and warnings, presets, camera-lens mode and a quick-reference formula table.
-- [About](https://knowperspective.art/about): who it is for, why it exists, what it teaches, how to use it, roadmap.
+- [About](https://knowperspective.art/about): who it is for, why it exists, how to use it, and who made it.
 
 ## Full content
 
 - [llms-full.txt](https://knowperspective.art/llms-full.txt): all explanatory text and formulas from the site in plain Markdown.
 
-## Source
+## Author
 
-- [GitHub repository](https://github.com/KatFishSnake/knowperspective.art): open source, static site, no build step.
+- [André on Instagram](https://www.instagram.com/andre_korev/): built the tool while learning perspective.

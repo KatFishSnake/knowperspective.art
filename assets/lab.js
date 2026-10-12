@@ -18,21 +18,21 @@ const S = Object.assign({
 
 const SLIDERS = [
   {group:'Viewer', key:'D', label:'Viewing distance D', min:80, max:1500, step:5, unit:' px',
-   hint:'Eye-to-window distance. SP sits this far below the horizon. Bigger D flattens convergence, pushes the VPs out and grows the cone circle.'},
+   hint:'Eye-to-window distance. SP sits this far below the horizon. Increase D and convergence flattens, the VPs move out and the cone circle grows.'},
   {group:'Viewer', key:'cone', label:'Cone of vision', min:20, max:130, step:1, unit:'°',
-   hint:'Comfort zone around the line of sight. Only sets the circle radius, D·tan(half angle). The drawing does not change; what you call acceptable does.'},
+   hint:'Comfort zone around the line of sight. This only sets the circle radius, D·tan(half angle). The drawing does not change.'},
   {group:'Viewer', key:'tilt', label:'Tilt of line of sight', min:-45, max:45, step:1, unit:'°',
-   hint:'Pitch your gaze up or down. Verticals start converging to a third VP and the horizon slides off CV.'},
+   hint:'Tilt your gaze up or down. Verticals converge to VP3 and the horizon moves off CV.'},
   {group:'Viewer', key:'eye', label:'Eye height', min:-1, max:4, step:0.05, unit:' u',
-   hint:'Height of your eye above the ground. 1 u is the default box height, 160 px on the window. Moves the box against the horizon; the construction stays put.'},
+   hint:'Height of your eye above the ground. 1 u is the default box height, 160 px on the window. This moves the box against the horizon. The construction stays put.'},
   {group:'Box', key:'rot', label:'Rotation', min:0, max:90, step:1, unit:'°',
-   hint:'Turn the box. 0° or 90°: one edge set runs parallel to the sheet and its VP goes to infinity (one-point). 45°: symmetric two-point.'},
+   hint:'Turn the box. At 0° or 90°, one edge set runs parallel to the sheet and its VP goes to infinity, which gives one-point. At 45°, the two VPs are symmetric.'},
   {group:'Box', key:'w', label:'Width', min:0.3, max:3, step:0.1, unit:' u', hint:''},
   {group:'Box', key:'d', label:'Depth', min:0.3, max:3, step:0.1, unit:' u', hint:''},
   {group:'Box', key:'h', label:'Height', min:0.3, max:3, step:0.1, unit:' u', hint:''},
   {group:'Box', key:'x0', label:'Sideways position', min:-400, max:400, step:5, unit:' px', hint:'Slide the box along the window.'},
   {group:'Advanced', key:'corner', label:'Box corner angle', min:60, max:120, step:1, unit:'°',
-   hint:'Angle between the two legs from SP. It is 90° because boxes have right angles. Change it and you draw a rhombic prism, not a different view.'}
+   hint:'Angle between the two legs from SP. A box uses 90°. Change the angle and you are drawing a rhombic prism.'}
 ];
 const SHOW = [
   {cat:'Construction', items:[['cone','Cone of vision circle'],['rays','Cone rays from SP'],['legs','Legs from SP to the VPs'],['labels','Labels']]},
@@ -329,24 +329,24 @@ function reading(g){
   const notes=[];
   const push=(lvl,t)=>notes.push({lvl,t});
   const coneR=Math.round(S.cone);
-  if (S.cone>=90) push('bad','Cone is '+coneR+'°. At 90° the two VPs of a 45° box sit exactly on the circle; wider than that they fall inside it, and the circle stops protecting you from distortion. About 60° is the usual comfort limit.');
+  if (S.cone>=90) push('bad','Cone is '+coneR+'°. At 90°, the two VPs of a 45° box sit on the circle. Wider than that puts them inside it, and the circle no longer warns you about stretching. About 60° is the usual comfort limit.');
   [['VP1',g.VP1],['VP2',g.VP2],['VP3',g.VP3]].forEach(([n,vp])=>{
     if (vp && Math.hypot(vp.x,vp.y)<g.r) push('bad', n+' is inside the cone of vision ('+Math.round(Math.hypot(vp.x,vp.y))+' px from CV, circle radius '+Math.round(g.r)+'). Edges heading there converge so fast that the box looks warped. Increase D, or turn the box so this VP moves out.');
   });
   const pc=projectedCorners(g), outside=pc.filter(p=>Math.hypot(p.x,p.y)>g.r).length;
-  if (outside>0) push('warn', outside+' of '+pc.length+' box corners lie outside the cone. Those parts are drawn stretched, the wide-angle look. Increase D (Advanced has a button that finds the smallest D that fits), shrink the box, or slide it toward CV.');
-  else push('good','The whole box sits inside the cone of vision, so nothing looks stretched.');
+  if (outside>0) push('warn', outside+' of '+pc.length+' box corners lie outside the cone. Those parts will look stretched. Increase D, shrink the box, or slide it toward CV. Advanced can find the smallest D that fits.');
+  else push('good','The whole box sits inside the cone of vision.');
   [['VP1',g.VP1],['VP2',g.VP2],['VP3',g.VP3]].forEach(([n,vp])=>{
-    if (vp && !onScreen(toS(vp))) push('info', n+' is '+Math.round(Math.hypot(vp.x,vp.y))+' px from CV, beyond the visible sheet. On paper you would tape on an extension or use a long straightedge. Zoom out to see it.');
+    if (vp && !onScreen(toS(vp))) push('info', n+' is '+Math.round(Math.hypot(vp.x,vp.y))+' px from CV, beyond the visible sheet. On paper, tape on an extension or use a long straightedge. Zoom out to see it.');
   });
-  if (S.lens.on){ const L=lensInfo(); push('info','Lens mode: D = focal length × frame width ÷ sensor width = '+S.lens.f+' × '+S.lens.frame+' ÷ '+L.sensor.w+' = '+Math.round(L.D)+' px, and the cone is the lens’s diagonal angle of view, '+Math.round(L.aov)+'°. The frame sits inscribed in the circle. A 60° cone is about a 37 mm lens on full frame.'); }
+  if (S.lens.on){ const L=lensInfo(); push('info','Lens mode sets D = focal length × frame width ÷ sensor width = '+S.lens.f+' × '+S.lens.frame+' ÷ '+L.sensor.w+' = '+Math.round(L.D)+' px. The cone is the lens’s diagonal angle of view, '+Math.round(L.aov)+'°. The frame sits inscribed in the circle. A 60° cone is about a 37 mm lens on full frame.'); }
   if (three) push('info','Looking '+(S.tilt>0?'up':'down')+' by '+Math.abs(S.tilt)+'°: the window tilts with your line of sight, so verticals converge to VP3 at D / tan '+Math.abs(S.tilt)+'° = '+Math.round(Math.abs(g.VP3.y))+' px '+(g.VP3.y>0?'above':'below')+' CV, and the horizon moves to D · tan '+Math.abs(S.tilt)+'° = '+Math.round(Math.abs(g.yH))+' px on the other side. The horizontal VPs spread by 1 / cos '+Math.abs(S.tilt)+'° = '+(1/g.c).toFixed(2)+'.');
   if (onePoint) push('info','Rotation '+S.rot+'°: one edge direction runs parallel to the sheet, so its VP is at infinity and those edges stay parallel to the horizon. The other direction points straight at CV, which is its VP.');
-  if (S.corner!==90) push('info','The legs are '+S.corner+'° apart, so this is a prism with '+S.corner+'° corners, not a rectangular box. The textbook 90° is the box’s corner angle, not a property of the eye.');
-  if (S.eye<0) push('info','Your eye is below the ground plane: you are looking at the ground from underneath.');
-  else if (S.eye===0) push('info','Your eye is exactly on the ground: the whole ground plane collapses onto the horizon.');
+  if (S.corner!==90) push('info','The legs are '+S.corner+'° apart, so this is a prism with '+S.corner+'° corners. A rectangular box uses 90° corners.');
+  if (S.eye<0) push('info','Your eye is below the ground plane. You are looking at the ground from underneath.');
+  else if (S.eye===0) push('info','Your eye is exactly on the ground. The ground plane collapses onto the horizon.');
   else if (S.eye<S.h) push('info','Eye level cuts through the box, so you see neither its top nor its bottom face.');
-  if (S.tilt!==0 && (S.show.footprint||S.show.visual)) push('info','The plan overlay is hidden while the line of sight is tilted: folding a plan onto the sheet only works when the window is vertical.');
+  if (S.tilt!==0 && (S.show.footprint||S.show.visual)) push('info','The plan overlay is hidden while the line of sight is tilted. Folding a plan onto the sheet only works when the window is vertical.');
   $('notes').innerHTML = notes.map(n=>'<li class="'+n.lvl+'">'+n.t+'</li>').join('');
 }
 
@@ -380,13 +380,13 @@ function buildControls(){
   const advG=groupEl('Advanced');
   advG.innerHTML='<div class="eyebrow">Advanced</div>'+
     '<div class="subcat">Camera lens</div>'+
-    '<label class="check"><input type="checkbox" id="lens-on"><span>Use a camera lens. Focal length and sensor set D and the cone; those two sliders lock.</span></label>'+
+    '<label class="check"><input type="checkbox" id="lens-on"><span>Use a camera lens. Focal length and sensor set D and the cone. Those two sliders lock.</span></label>'+
     '<div class="ctl"><label for="lens-f">Focal length</label><span class="val" id="val-lens-f"></span><input type="range" id="lens-f" min="4" max="200" step="0.1" value="'+S.lens.f+'"><div class="hint">Real focal length of the lens. D = focal length × frame width ÷ sensor width.</div></div>'+
     '<div class="ctl"><label for="lens-sensor">Sensor format</label><select id="lens-sensor">'+Object.entries(SENSORS).map(([k,v])=>'<option value="'+k+'">'+v.name+'</option>').join('')+'</select><div class="hint">The cone becomes the lens’s diagonal angle of view, so the frame sits inscribed in the circle.</div></div>'+
-    '<div class="ctl"><label for="lens-frame">Frame width on the sheet</label><span class="val" id="val-lens-frame"></span><input type="range" id="lens-frame" min="240" max="900" step="10" value="'+S.lens.frame+'"><div class="hint">How large the photo is drawn on the sheet. Scales D with it.</div></div>'+
+    '<div class="ctl"><label for="lens-frame">Frame width on the sheet</label><span class="val" id="val-lens-frame"></span><input type="range" id="lens-frame" min="240" max="900" step="10" value="'+S.lens.frame+'"><div class="hint">How wide the photo is on the sheet. D scales with this size.</div></div>'+
     '<div class="lens-out" id="lens-out"></div>'+
     '<div class="subcat">Paper workflow</div>'+
-    '<div class="ctl"><label>Find D from the cone</label><button class="btn" id="derive-d" type="button">Fit D to the box</button><div class="hint">What you do on paper: circle the composition first, then place SP so the circle is the cone. This sets the smallest D that keeps every box corner inside the circle.</div></div>'+
+    '<div class="ctl"><label>Find D from the cone</label><button class="btn" id="derive-d" type="button">Fit D to the box</button><div class="hint">On paper, circle the composition first. Then place SP so that circle is the cone. This sets the smallest D that keeps every box corner inside the circle.</div></div>'+
     '<div class="subcat">Object</div>';
   const cs=SLIDERS.find(s=>s.key==='corner');
   const cel=document.createElement('div'); cel.className='ctl'; cel.id='ctl-row-corner';
